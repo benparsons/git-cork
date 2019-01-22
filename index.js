@@ -1,12 +1,13 @@
 const { exec } = require('child_process');
 const fs = require('fs');
-var projects = fs.readdirSync('..');
+var projects = fs.readdirSync('/Users/benp/projects/');
 projects.forEach(item => {
   var stat = fs.statSync('../' + item);
   if (stat && stat.isDirectory()) {
     gitParse('../' + item);
   }
 });
+process.chdir('/Users/benp/')
 
 function gitParse(path) {
   exec(`git -C ${path} status -sb`, (err, stdout, stderr) => {
