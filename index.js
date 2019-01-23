@@ -5,10 +5,9 @@ var projects = fs.readdirSync(path);
 projects.forEach(item => {
   var stat = fs.statSync(path + item);
   if (stat && stat.isDirectory()) {
-    gitParse('../' + item);
+    gitParse(path + item);
   }
 });
-process.chdir('/Users/benp/')
 
 function gitParse(path) {
   exec(`git -C ${path} status -sb`, (err, stdout, stderr) => {
