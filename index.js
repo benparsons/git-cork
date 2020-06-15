@@ -29,6 +29,28 @@ function gitParse(path) {
       console.log("\n\n=======\n" + path);
       console.log(`stdout: ${stdout}`);
       process.exitCode = 1;
+      return;
     }
+
+    exec(`git -C ${path} remote`, (err, stdout, stderr) => {
+
+      if (err) {
+        console.log("\n\n=======\n" + path);
+        console.log(`err: ${err}`);
+        process.exitCode = 1;
+        return;
+      }
+      if (stderr) {
+        console.log("\n\n=======\n" + path);
+        console.log(`stderr: ${stderr}`);
+        process.exitCode = 1;
+        return;
+      }
+      if (stdout.length === 0) {
+        console.log("\n\n=======\n" + path);
+        console.log("Missing remote");
+      }
+
+    });
   });
 }
